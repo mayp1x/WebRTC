@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalkToMe - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+</head>
+<script>
+    function showForm() {
+        if (document.getElementById("form").hidden) {
+            document.getElementById("form").hidden = false;
+        }
+    }  
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
+    integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+    crossorigin="anonymous"></script>
+
+<body>
+    <!-- Modal Stworz pokoj -->
+    <div class="modal fade" id="stworzModal" tabindex="-1" role="dialog" aria-labelledby="stworzModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="stworzModalLabel">Stwórz pokój</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form id="form" action="/rooms/create" method="POST">
+                            <div class="form-group">
+                                <label for="id">Nazwa</label>
+                                <input type="text" class="form-control" name="name" placeholder="Wpisz nazwę pokoju">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Hasło</label>
+                                <input type="password" class="form-control" name="password" placeholder="Wpisz hasło pokoju">
+                            </div>
+                                <button type="submit" class="btn btn-primary"> Utwórz pokój </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Anuluj </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Dołącz -->
+    <div class="modal fade" id="dolaczModal" tabindex="-1" role="dialog" aria-labelledby="dolaczModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="dolaczModalLabel">Dołącz do pokoju</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <form id="form" action="/rooms/join" method="POST">
+                            <div class="form-group">
+                                <label for="_id">ID</label>
+                                <input type="text" class="form-control" name="_id" placeholder="Wklej ID pokoju">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Hasło</label>
+                                <input type="password" class="form-control" name="password" placeholder="Wpisz hasło pokoju">
+                            </div>
+                                <button type="submit" class="btn btn-primary"> Dołącz </button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"> Anuluj </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="background">
+
+
+
+
+        <div class="text">
+            <div class="header">
+                <h1 class='title'>TalkToMe</h1>
+            </div>
+            <div class="buttons">
+                <button data-toggle="modal" data-target="#stworzModal" type="button home-button" id="button1">Stwórz
+                    pokój</button>
+                <button data-toggle="modal" data-target="#dolaczModal" type="button home-button" id="button1">Dołącz do pokoju</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

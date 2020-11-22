@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebRTC - Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<script>
+    function showForm() {
+        if(document.getElementById("form").hidden){
+            document.getElementById("form").hidden=false;
+        }
+    }
+</script>
+<body>
+    <div class="background">
+        <div class="text">
+            <div class="header">
+                <h1>WebRTC</h1>
+            </div>
+            <div class="buttons">
+                <button  onclick="location.href='/new_room.html' " type="button home-button" id="button1">Stwórz pokój</button>
+                <button onclick="showForm()" type="button contact-button" id="button2">Dołącz do pokoju</button>
+                <form id="form" action="/join_room.html" method="GET" hidden>
+                    <input type="text" name="room" placeholder="Tutaj wklej numer pokoju"/>
+                    <input type="submit" style="position: absolute; left: -9999px"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
