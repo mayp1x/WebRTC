@@ -1,3 +1,7 @@
+/*
+    MongoDB Room object schema
+                                */
+
 const mongoose = require('mongoose')
 
 const roomSchema = mongoose.Schema({

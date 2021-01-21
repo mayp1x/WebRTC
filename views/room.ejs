@@ -1,39 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TalkToMe - Home</title>
-    <link rel="stylesheet" href="/style.css">
-    <script src="script.js"></script>
-</head>
-<script>
-    const ROOM_ID = "<%= roomId %>";
-</script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css"
-    integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
-    crossorigin="anonymous"></script>
-
-<body>
-
-
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>
+      const ROOM_ID = "<%= roomId %>"
+    </script>
+    <script defer src="https://unpkg.com/peerjs@1.3.1/dist/peerjs.min.js"></script>
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
+    <title>TalkToMe - Room</title>
+  </head>
+  <body>
     <div class="background">
-            <div class="header">
-                <h1 class='logo'><a href="/">TalkToMe</a></h1>
-                <h3 class="description"> Pokój "<%= roomId %>"</h3>
-            </div>
+      <div class="header">
+        <h1 class='logo'><a href="/">TalkToMe</a></h1>
+        <h3>Pokoj: <%= roomId %>
+        </h3>
+      </div>
+      <div id="video-grid"></div>
+      <div class="buttons">
+        <button type="button">
+        <a href="javascript:muteMicrophone()" id="muteBtn">Wycisz mikrofon</a>
+        </button>
+        <button type="button">
+        <a href="javascript:stopVideo()" id="stopBtn">Wylacz kamerke</a>
+        </button>
+      </div>
+      <section class="chatbox js-chatbox">
+        <div class="chatbox__header">
+          <h3 class="chatbox__header-cta-text"><span class="chatbox__header-cta-icon"><i
+            class="fas fa-comments"></i></span>Chat na żywo</h3>
+          <button class="js-chatbox-toggle chatbox__header-cta-btn u-btn"><i class="fas fa-chevron-up">Zamknij</i></button>
+        </div>
+        <div class="js-chatbox-display chatbox__display">
+        </div>
+        <form class="js-chatbox-form chatbox__form">
+          <input type="text" class="js-chatbox-input chatbox__form-input" placeholder="Wpisz wiadmość..." required>
+          <button class="chatbox__form-submit u-btn" style="background-color: white;">Wyślij</button>
+        </form>
+      </section>
     </div>
-</body>
-
+  </body>
 </html>
