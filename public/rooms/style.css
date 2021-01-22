@@ -145,13 +145,12 @@ body {
 
 #video-grid {
   display: flex;
-         justify-content: center;
-         flex-wrap: wrap;
-         flex-grow: 1;
-    background-color: white;
-    justify-content: center;
-    align-items: center;
-    padding: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  background-color: white;
+  align-items: center;
+  padding: 40px;
 }
 
 video {

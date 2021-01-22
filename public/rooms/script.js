@@ -1,33 +1,21 @@
 const socket = io('/')
-
-// Connecting to Peer server
-const myPeer = new Peer(undefined, {
-  host: '/',
-  port: '3000',
-  secure: true
-})
-
-// Creating html5 video elements
 const videoGrid = document.getElementById('video-grid')
-const myVideo = document.createElement('video')
-myVideo.muted = true
-
-const peers = {}
-var myUserId = 0;
-
-myPeer.on('open', id => {
-  socket.emit('join-room', ROOM_ID, id)
-  myUserId = id;
-  createChatBubble('Witaj w pokoju ' + ROOM_ID);
+const myPeer = new Peer(undefined, {
+  path: '/peerjs',
+  host: '/',
+  port: '443'
 })
+const myVideo = document.createElement('video')
+var myUserId = 0;
+myVideo.muted = true
+const peers = {}
 
-// Getting access to user media with WebRTC API
 navigator.mediaDevices.getUserMedia({
   video: true,
   audio: true
 }).then(stream => {
-  myVideoStream = stream
-  addVideoStream(myVideo, myVideoStream)
+  myVideoStream = stream;
+  addVideoStream(myVideo, stream)
   myPeer.on('call', call => {
     call.answer(stream)
     const video = document.createElement('video')
@@ -40,6 +28,10 @@ navigator.mediaDevices.getUserMedia({
     connectToNewUser(userId, stream)
     createChatBubble('Dołączył ' + userId);
   })
+
+  socket.on('message', msg => {
+    createChatBubble(msg);
+  })
 })
 
 socket.on('user-disconnected', userId => {
@@ -49,20 +41,24 @@ socket.on('user-disconnected', userId => {
   }
 })
 
-socket.on('message', msg => {
-  createChatBubble(msg);
+
+myPeer.on('open', id => {
+  socket.emit('join-room', ROOM_ID, id)
+  myUserId = id;
+  createChatBubble('Witaj w pokoju ' + ROOM_ID);
 })
+
 
 function connectToNewUser(userId, stream) {
   const call = myPeer.call(userId, stream)
   const video = document.createElement('video')
-  video.innerHTML = userId
   call.on('stream', userVideoStream => {
     addVideoStream(video, userVideoStream)
   })
   call.on('close', () => {
     video.remove()
   })
+  
   peers[userId] = call
 }
 
@@ -74,7 +70,6 @@ function addVideoStream(video, stream) {
   videoGrid.append(video)
 }
 
-//Mute or unmute your microphone
 function muteMicrophone() {
   let enabled = myVideoStream.getAudioTracks()[0].enabled;
   if (enabled) {
@@ -88,7 +83,6 @@ function muteMicrophone() {
   }
 }
 
-//Turn on or off your video
 function stopVideo() {
   let enabled = myVideoStream.getVideoTracks()[0].enabled;
   if (enabled) {
@@ -102,8 +96,6 @@ function stopVideo() {
   }
 }
 
-
-// Chatbox on socket
 const toggleChatboxBtn = document.querySelector(".js-chatbox-toggle");
 const chatbox = document.querySelector(".js-chatbox");
 const chatboxMsgDisplay = document.querySelector(".js-chatbox-display");
@@ -116,6 +108,7 @@ const createChatBubble = input => {
   chatSection.classList.add("chatbox__display-chat");
   chatboxMsgDisplay.appendChild(chatSection);
 };
+
 
 toggleChatboxBtn.addEventListener("click", () => {
   chatbox.classList.toggle("chatbox--is-visible");

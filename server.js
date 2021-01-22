@@ -30,17 +30,13 @@ app.use(express.urlencoded({
 	extended: true
 }))
 
+
 // Peer server configuration. Works on port 3000
-const {
-	PeerServer
-} = require('peer');
-const peerServer = PeerServer({
-	port: 3000,
-	ssl: {
-		key: key,
-		cert: cert
-	}
+const { ExpressPeerServer } = require('peer');
+const peerServer = ExpressPeerServer(server, {
+  debug: true
 });
+app.use('/peerjs', peerServer);
 
 // MongoDB configuration
 const mongoose = require('mongoose')
